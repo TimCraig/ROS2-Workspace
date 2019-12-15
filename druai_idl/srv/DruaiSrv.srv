@@ -1,0 +1,6 @@
+int32 a
+int32 b
+
+# when the service is called
+---
+int32 product

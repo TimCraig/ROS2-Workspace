@@ -1,0 +1,10 @@
+# goal definition
+int32 start
+int32 step
+int32 end
+---
+# result definition
+int32 final
+---
+# feedback
+int32 current
