@@ -1,0 +1,39 @@
+In file included from /home/brutusdev/ros2/colcon_ws/src/service_template_test/template_server.cpp:6:0:
+/home/brutusdev/ros2/colcon_ws/src/service_template_test/../Druai/include/DruaiNodeTemplates.h: 
+
+In instantiation of ‘DruaiSimpleServerNode<SERVICE>::DruaiSimpleServerNode(const string&, const string&, const rmw_qos_profile_t&, rclcpp::callback_group::CallbackGroup::SharedPtr) [with SERVICE = druai_idl::srv::DruaiSrv; std::__cxx11::string = std::__cxx11::basic_string<char>; rmw_qos_profile_t = rmw_qos_profile_t; rclcpp::callback_group::CallbackGroup::SharedPtr = std::shared_ptr<rclcpp::callback_group::CallbackGroup>]’:
+
+/home/brutusdev/ros2/colcon_ws/src/service_template_test/template_server.cpp:26:71:   required from here
+/home/brutusdev/ros2/colcon_ws/src/service_template_test/../Druai/include/DruaiNodeTemplates.h:103:51: error: no matching function for call to
+
+‘DruaiSimpleServerNode<druai_idl::srv::DruaiSrv>::create_subscription<druai_idl::srv::DruaiSrv>(const string&, std::_Bind_helper<false, void (DruaiSimpleServerNode<druai_idl::srv::DruaiSrv>::*)(std::shared_ptr<rmw_request_id_t>, std::shared_ptr<druai_idl::srv::DruaiSrv_Request_<std::allocator<void> > >, std::shared_ptr<druai_idl::srv::DruaiSrv_Response_<std::allocator<void> > >), DruaiSimpleServerNode<druai_idl::srv::DruaiSrv>*, const std::_Placeholder<1>&, const std::_Placeholder<2>&, const std::_Placeholder<3>&>::type, const rmw_qos_profile_t&, rclcpp::callback_group::CallbackGroup::SharedPtr&)’
+          m_pService = create_subscription<SERVICE>(ServiceName,
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+                std::bind(&DruaiSimpleServerNode::HandleRequest, this,
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                std::placeholders::_1, std::placeholders::_2, std::placeholders::_3),
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                QOS, pGroup);
+                
+                ~~~~~~~~~~~~                        
+In file included from /opt/ros/eloquent/include/rclcpp/executors/single_threaded_executor.hpp:28:0,
+                 from /opt/ros/eloquent/include/rclcpp/executors.hpp:22,
+                 from /opt/ros/eloquent/include/rclcpp/rclcpp.hpp:145,
+                 from /home/brutusdev/ros2/colcon_ws/src/service_template_test/template_server.cpp:5:
+                 
+/opt/ros/eloquent/include/rclcpp/node.hpp:208:3: note: candidate: template<class MessageT, class CallbackT, class AllocatorT, class CallbackMessageT, class SubscriptionT, class MessageMemoryStrategyT> std::shared_ptr<SubscriptionT> rclcpp::Node::create_subscription(const string&, const rclcpp::QoS&, CallbackT&&, const rclcpp::SubscriptionOptionsWithAllocator<AllocatorT>&, typename MessageMemoryStrategyT::SharedPtr)
+   create_subscription(
+   ^~~~~~~~~~~~~~~~~~~
+   
+/opt/ros/eloquent/include/rclcpp/node.hpp:208:3: note:   template argument deduction/substitution failed:
+In file included from /home/brutusdev/ros2/colcon_ws/src/service_template_test/template_server.cpp:6:0:
+/home/brutusdev/ros2/colcon_ws/src/service_template_test/../Druai/include/DruaiNodeTemplates.h:103:51: note:   ‘rclcpp::callback_group::CallbackGroup::SharedPtr {aka std::shared_ptr<rclcpp::callback_group::CallbackGroup>}’ is not derived from ‘const rclcpp::SubscriptionOptionsWithAllocator<AllocatorT>’
+
+          m_pService = create_subscription<SERVICE>(ServiceName,
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+                std::bind(&DruaiSimpleServerNode::HandleRequest, this,
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                std::placeholders::_1, std::placeholders::_2, std::placeholders::_3),
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                QOS, pGroup);
+

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format2.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="2">
+  <name>service_template_test</name>
+  <version>0.7.3</version>
+  <description>Examples of using custom interfaces</description>
+  <maintainer email="TimCraig@Druai.com">Tim Craig</maintainer>
+  <license>Apache License 2.0</license>
+  <author>Tim Craig</author>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  
+  <depend>rclcpp</depend>
+#  <depend>rclcpp_action</depend>
+  <depend>druai_idl</depend>
+
+  <build_depend>std_msgs</build_depend>
+  <build_depend>Druai</build_depend>
+
+  <exec_depend>std_msgs</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>
+
