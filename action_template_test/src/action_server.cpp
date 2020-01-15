@@ -14,6 +14,7 @@
 
 #include <inttypes.h>
 #include <memory>
+#include <vector>
 #include "example_interfaces/action/fibonacci.hpp"
 #include "rclcpp/rclcpp.hpp"
 // TODO(jacobperron): Remove this once it is included as part of 'rclcpp.hpp'
@@ -31,43 +32,45 @@ class MinimalActionServer : public DruaiSimpleActionServerNode<example_interface
 
    private:
 
-      virtual void Execute(const std::shared_ptr<GOALHANDLEACTION> goal_handle) override
+      virtual void Execute(const std::shared_ptr<GOALHANDLEACTION> pGoalHandle) override
          {
          rclcpp::Rate loop_rate(1);
-         const auto goal = goal_handle->get_goal();
-               RCLCPP_INFO(this->get_logger(), "Executing goal: order = %d", goal->order);
-         auto feedback = std::make_shared<ACTION::Feedback>();
-         auto & sequence = feedback->sequence;
-         sequence.push_back(0);
-         sequence.push_back(1);
-         auto result = std::make_shared<ACTION::Result>();
+         const auto pGoal = pGoalHandle->get_goal();
+               RCLCPP_INFO(this->get_logger(), "Executing pGoal: order = %d", pGoal->order);
+         auto pFeedback = std::make_shared<ACTION::Feedback>();
+         auto& Sequence = pFeedback->sequence;
 
-         for (int i = 1; (i < goal->order) && rclcpp::ok(); ++i)
+         Sequence.push_back(0);
+         Sequence.push_back(1);
+         auto pResult = std::make_shared<ACTION::Result>();
+
+         for (auto i = 1 ; (i < pGoal->order) && rclcpp::ok()  ; ++i)
             {
             // Check if there is a cancel request
-            if (goal_handle->is_canceling())
+            if (pGoalHandle->is_canceling())
                {
-               result->sequence = sequence;
-               goal_handle->canceled(result);
+               pResult->sequence = Sequence;
+               pGoalHandle->canceled(pResult);
                RCLCPP_INFO(get_logger(), "Goal Canceled");
                return;
                }
 
             // Update sequence
-            auto next = sequence[i] + sequence[i - 1];
-            sequence.push_back(next);
+            auto next = Sequence[i] + Sequence[i - 1];
+            Sequence.push_back(next);
+
             // Publish feedback
-            goal_handle->publish_feedback(feedback);
+            pGoalHandle->publish_feedback(pFeedback);
             RCLCPP_INFO(get_logger(), "Publish Feedback %" PRId32, next);
 
             loop_rate.sleep();
             }
 
-         // Check if goal is done
+         // Check if Goal is done
          if (rclcpp::ok())
             {
-            result->sequence = sequence;
-            goal_handle->succeed(result);
+            pResult->sequence = Sequence;
+            pGoalHandle->succeed(pResult);
             RCLCPP_INFO(get_logger(), "Goal Succeeded");
             }
 
@@ -80,9 +83,9 @@ int main(int argc, char* argv[])
    {
    rclcpp::init(argc, argv);
 
-   auto action_server = std::make_shared<MinimalActionServer>();
+   auto pActionServer = std::make_shared<MinimalActionServer>();
 
-   rclcpp::spin(action_server);
+   rclcpp::spin(pActionServer);
 
    rclcpp::shutdown();
 
