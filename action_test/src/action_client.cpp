@@ -65,12 +65,14 @@ public:
       return;
     }
 
-    auto goal_msg = Fibonacci::Goal();
+//    auto goal_msg = Fibonacci::Goal();
+    Fibonacci::Goal goal_msg;
     goal_msg.order = 10;
 
     RCLCPP_INFO(this->get_logger(), "Sending goal");
 
-    auto send_goal_options = rclcpp_action::Client<Fibonacci>::SendGoalOptions();
+//    auto send_goal_options = rclcpp_action::Client<Fibonacci>::SendGoalOptions();
+    typename rclcpp_action::Client<Fibonacci>::SendGoalOptions send_goal_options;
     send_goal_options.goal_response_callback =
       std::bind(&MinimalActionClient::goal_response_callback, this, _1);
     send_goal_options.feedback_callback =
